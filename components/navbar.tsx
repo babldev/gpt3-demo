@@ -2,49 +2,56 @@ import {
   Group, Navbar, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import {
-  IconAlertCircle, IconDatabase, IconGitPullRequest, IconMessages,
+  IconMovie, IconPig,
 } from '@tabler/icons';
+import Link from 'next/link';
 import React from 'react';
 
+// Add your pages here!
+const data = [
+  { icon: <IconMovie size={16} />, label: 'Movie to emoji', path: 'movie-to-emoji' },
+  { icon: <IconPig size={16} />, label: 'Pig latin translator', path: 'pig-latin' },
+];
 interface MainLinkProps {
   icon: React.ReactNode;
-  color: string;
+  path: string;
+  color?: string;
   label: string;
 }
 
-function MainLink({ icon, color, label }: MainLinkProps) {
+function MainLink({
+  icon, color, label, path,
+}: MainLinkProps) {
   return (
-    <UnstyledButton
-      sx={(theme) => ({
-        display: 'block',
-        width: '100%',
-        padding: 6,
-        borderRadius: theme.radius.sm,
-        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+    <Link href={`/demos/${path}`} passHref>
+      <UnstyledButton
+        sx={(theme) => ({
+          display: 'block',
+          width: '100%',
+          padding: 6,
+          borderRadius: theme.radius.sm,
+          color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
 
-        '&:hover': {
-          backgroundColor:
-            theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-        },
-      })}
-    >
-      <Group>
-        <ThemeIcon color={color} variant="light" size="sm">
-          {icon}
-        </ThemeIcon>
+          '&:hover': {
+            backgroundColor:
+              theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+          },
+        })}
+      >
+        <Group>
+          <ThemeIcon color={color} variant="light" size="sm">
+            {icon}
+          </ThemeIcon>
 
-        <Text size="xs">{label}</Text>
-      </Group>
-    </UnstyledButton>
+          <Text size="xs">{label}</Text>
+        </Group>
+      </UnstyledButton>
+    </Link>
   );
 }
-
-const data = [
-  { icon: <IconGitPullRequest size={16} />, color: 'blue', label: 'Pull Requests' },
-  { icon: <IconAlertCircle size={16} />, color: 'teal', label: 'Open Issues' },
-  { icon: <IconMessages size={16} />, color: 'violet', label: 'Discussions' },
-  { icon: <IconDatabase size={16} />, color: 'grape', label: 'Databases' },
-];
+MainLink.defaultProps = {
+  color: undefined,
+};
 
 export function MainLinks() {
   const links = data.map((link) => <MainLink {...link} key={link.label} />);
