@@ -1,5 +1,5 @@
 import {
-  Box, Button, Code, Mark, Paper, Stack, TextInput, Title,
+  Box, Button, Code, Divider, Mark, Paper, Stack, Text, TextInput, Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { CreateCompletionRequest, CreateCompletionResponse } from 'openai';
@@ -73,13 +73,14 @@ export default function MovieToEmoji() {
             placeholder="The Matrix"
             {...form.getInputProps('movie')}
           />
-          <Button type="submit" loading={loading}>Translate</Button>
+          <Button type="submit" loading={loading}>Generate!</Button>
           { (result && !loading)
           && (
             <>
+              <Divider my="xs" />
               <Title order={4}>Result</Title>
               <Paper shadow="xs" p="md">
-                { result }
+                <Text size={50} align="center">{ result }</Text>
               </Paper>
               <Title order={4}>GPT-3 Prompt</Title>
               <Paper shadow="xs" p="md">
