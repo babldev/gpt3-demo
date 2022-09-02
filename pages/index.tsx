@@ -1,3 +1,3 @@
 export default function Home() {
-  return 'Hello, gpt-3 demo';
+  return 'Welcome to the GPT-3 interactive demo! Select a demo on the left.';
 }
