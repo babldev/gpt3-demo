@@ -10,13 +10,24 @@ interface FormValues {
 }
 
 // Borrowed from gpt3 examples https://beta.openai.com/examples/default-movie-to-emoji
-function generatePrompt({ movie }: FormValues): string {
-  return `Convert movie titles into emoji.
+function generatePrompt({ movie }: FormValues): CreateCompletionRequest {
+  const prompt = `Convert movie titles into emoji.
 
 Back to the Future: 👨👴🚗🕒
 Batman: 🤵🦇
 Transformers: 🚗🤖
 ${movie}:`;
+
+  return {
+    model: 'text-davinci-002',
+    prompt,
+    max_tokens: 60,
+    temperature: 0.8,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+    stop: '\n',
+  };
 }
 
 export default function MovieToEmoji() {
@@ -30,23 +41,17 @@ export default function MovieToEmoji() {
   });
 
   const [result, setResult] = React.useState<string | undefined>(undefined);
+  const [openaiRequest, setOpenaiRequest] = React.useState<
+  CreateCompletionRequest | undefined>(undefined);
   const [loading, setLoading] = React.useState(false);
 
   return (
     <Box sx={{ maxWidth: 500 }}>
       <form onSubmit={
         form.onSubmit(async (values) => {
-          const request: CreateCompletionRequest = {
-            model: 'text-davinci-002',
-            prompt: generatePrompt(values),
-            max_tokens: 60,
-            temperature: 0.8,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0,
-            stop: '\n',
-          };
+          const request = generatePrompt(values);
           setLoading(true);
+          setOpenaiRequest(request);
           await fetch('/api/completion', {
             method: 'POST',
             headers: {
@@ -85,7 +90,8 @@ export default function MovieToEmoji() {
               <Title order={4}>GPT-3 Prompt</Title>
               <Paper shadow="xs" p="md">
                 <Code block>
-                  { generatePrompt(form.values) }
+                  { openaiRequest?.prompt }
+
                   <Mark>{ result }</Mark>
                 </Code>
               </Paper>
