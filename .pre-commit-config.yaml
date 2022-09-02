@@ -1,0 +1,23 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+-   repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.12.0
+    hooks:
+    -   id: eslint
+        files: \.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
+        types: [file]
+        args: ['--fix']
+-   repo: local
+    hooks:
+    -   id: typescript-check
+        name: typescript-check
+        entry: npx tsc
+        language: system
+        types_or: [ts, tsx]
+        pass_filenames: false
