@@ -5,6 +5,7 @@ import {
   IconMovie, IconPig,
 } from '@tabler/icons';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 // Add your pages here!
@@ -22,19 +23,21 @@ interface MainLinkProps {
 function MainLink({
   icon, color, label, path,
 }: MainLinkProps) {
+  const router = useRouter();
+  const linkPath = `/demos/${path}`;
+  const currentPath = router.pathname === linkPath;
   return (
-    <Link href={`/demos/${path}`} passHref>
+    <Link href={linkPath} passHref>
       <UnstyledButton
         sx={(theme) => ({
           display: 'block',
           width: '100%',
           padding: 6,
           borderRadius: theme.radius.sm,
-          color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-
+          color: theme.black,
+          backgroundColor: currentPath ? theme.colors.blue[1] : undefined,
           '&:hover': {
-            backgroundColor:
-              theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+            backgroundColor: theme.colors.blue[2],
           },
         })}
       >
