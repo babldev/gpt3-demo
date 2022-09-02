@@ -14,7 +14,7 @@ export default function GPTCompletion({ request, result }: GPTCompletionProps) {
     <Paper shadow="xs" p="md">
       <Code block>
         { request.prompt }
-        <Mark>{ result }</Mark>
+        <Mark color="green">{ result }</Mark>
       </Code>
     </Paper>
   );
