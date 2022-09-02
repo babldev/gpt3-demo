@@ -97,10 +97,13 @@ export default function FakeReviewGenerator() {
           <Select
             withAsterisk
             label="Star rating"
-            data={zeroToFour.map((key) => ({
-              label: `${key + 1} stars`,
-              value: key + 1,
-            }))}
+            data={zeroToFour.map((key) => {
+              const stars = 6 - (key + 1);
+              return {
+                label: stars === 1 ? '1 star' : `${stars} stars`,
+                value: stars,
+              };
+            })}
             {...form.getInputProps('starRating')}
           />
           <Button type="submit" loading={loading}>Review!</Button>
