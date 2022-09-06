@@ -2,7 +2,7 @@ import {
   Group, Navbar, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import {
-  IconMovie, IconPig, IconStar, IconThermometer,
+  IconBrandHipchat, IconMoodSmileBeam, IconMovie, IconPig, IconStar, IconThermometer,
 } from '@tabler/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,6 +11,8 @@ import React from 'react';
 // Add your pages here!
 const data = [
   { icon: <IconMovie size={16} />, label: 'Movie to emoji', path: 'movie-to-emoji' },
+  { icon: <IconBrandHipchat size={16} />, label: 'Chatbot', path: 'chatbot' },
+  { icon: <IconMoodSmileBeam size={16} />, label: 'Tweet sentiment classifier', path: 'tweet-sentiment-classifier' },
   { icon: <IconPig size={16} />, label: 'Pig latin translator', path: 'pig-latin' },
   { icon: <IconStar size={16} />, label: 'Fake review generator', path: 'fake-review-generator' },
   { icon: <IconThermometer size={16} />, label: '(Param) Temperature', path: 'temperature' },
