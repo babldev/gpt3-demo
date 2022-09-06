@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Code, Mark, Paper,
+  Code, Mark, Paper, Table,
 } from '@mantine/core';
 import { CreateCompletionRequest } from 'openai';
 
@@ -16,6 +16,21 @@ export default function GPTCompletion({ request, result }: GPTCompletionProps) {
         { request.prompt }
         <Mark color="green">{ result }</Mark>
       </Code>
+      <Table verticalSpacing={4} horizontalSpacing={4} fontSize="xs">
+        <tbody>
+          { Object.entries(request).map(([key, value]) => {
+            if (key === 'prompt') {
+              return null;
+            }
+            return (
+              <tr key={key}>
+                <td>{ key }</td>
+                <td><Code>{ value }</Code></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     </Paper>
   );
 }
