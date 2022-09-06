@@ -33,7 +33,7 @@ ${movie}:`;
 export default function MovieToEmoji() {
   const form = useForm<FormValues>({
     initialValues: {
-      movie: '',
+      movie: 'The Matrix',
     },
     validate: {
       movie: (value) => (value.length > 0 ? null : 'Invalid movie'),

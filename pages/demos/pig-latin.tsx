@@ -30,7 +30,7 @@ Pig latin:`;
 export default function PigLatinTranslator() {
   const form = useForm<FormValues>({
     initialValues: {
-      input: '',
+      input: 'Do you speak pig latin?',
     },
     validate: {
       input: (value) => (value.length > 0 ? null : 'Invalid input'),
