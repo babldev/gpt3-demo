@@ -102,7 +102,7 @@ export default function Temperature() {
               <Paper shadow="xs" p="md">
                 <Text size="sm">{ result }</Text>
               </Paper>
-              <Title order={4}>GPT-3 Prompt</Title>
+              <Title order={5}>Prompt</Title>
               { request && <GPTCompletion request={request} result={result} /> }
             </>
           ))}

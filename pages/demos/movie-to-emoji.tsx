@@ -76,7 +76,7 @@ export default function MovieToEmoji() {
               <Paper shadow="xs" p="md">
                 <Text size={50} align="center">{ result }</Text>
               </Paper>
-              <Title order={4}>GPT-3 Prompt</Title>
+              <Title order={5}>Prompt</Title>
               { openaiRequest && <GPTCompletion request={openaiRequest} result={result} /> }
             </>
           )}

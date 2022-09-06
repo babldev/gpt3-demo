@@ -113,7 +113,7 @@ export default function FakeReviewGenerator() {
               <Divider my="xs" />
               <Title order={4}>Result</Title>
               <ReviewResult result={result} form={form.values} />
-              <Title order={4}>GPT-3 Prompt</Title>
+              <Title order={5}>Prompt</Title>
               { openaiRequest && <GPTCompletion request={openaiRequest} result={result} /> }
             </>
           )}
