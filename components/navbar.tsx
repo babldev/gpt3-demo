@@ -2,7 +2,7 @@ import {
   Group, Navbar, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import {
-  IconMovie, IconPig, IconStar,
+  IconMovie, IconPig, IconStar, IconThermometer,
 } from '@tabler/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,6 +13,7 @@ const data = [
   { icon: <IconMovie size={16} />, label: 'Movie to emoji', path: 'movie-to-emoji' },
   { icon: <IconPig size={16} />, label: 'Pig latin translator', path: 'pig-latin' },
   { icon: <IconStar size={16} />, label: 'Fake review generator', path: 'fake-review-generator' },
+  { icon: <IconThermometer size={16} />, label: '(Param) Temperature', path: 'temperature' },
 ];
 interface MainLinkProps {
   icon: React.ReactNode;
