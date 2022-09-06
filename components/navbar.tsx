@@ -10,11 +10,36 @@ import React from 'react';
 
 // Add your pages here!
 const productExamples = [
-  { icon: <IconMovie size={16} />, label: 'Movie to emoji', path: 'movie-to-emoji' },
-  { icon: <IconBrandHipchat size={16} />, label: 'Chatbot', path: 'chatbot' },
-  { icon: <IconMoodSmileBeam size={16} />, label: 'Tweet sentiment classifier', path: 'tweet-sentiment-classifier' },
-  { icon: <IconPig size={16} />, label: 'Pig latin translator', path: 'pig-latin' },
-  { icon: <IconStar size={16} />, label: 'Fake review generator', path: 'fake-review-generator' },
+  {
+    icon: <IconMovie size={16} />,
+    label: 'Movie to emoji',
+    sublabel: 'Knowledge',
+    path: 'movie-to-emoji',
+  },
+  {
+    icon: <IconBrandHipchat size={16} />,
+    label: 'Chatbot',
+    sublabel: 'Conversation',
+    path: 'chatbot',
+  },
+  {
+    icon: <IconMoodSmileBeam size={16} />,
+    label: 'Tweet sentiment classifier',
+    sublabel: 'Classification',
+    path: 'tweet-sentiment-classifier',
+  },
+  {
+    icon: <IconPig size={16} />,
+    label: 'Pig latin translator',
+    sublabel: 'Translation',
+    path: 'pig-latin',
+  },
+  {
+    icon: <IconStar size={16} />,
+    label: 'Fake review generator',
+    sublabel: 'Generation',
+    path: 'fake-review-generator',
+  },
 ];
 
 const paramExamples = [
@@ -27,10 +52,11 @@ interface MainLinkProps {
   path: string;
   color?: string;
   label: string;
+  sublabel?: string;
 }
 
 function MainLink({
-  icon, color, label, path,
+  icon, color, label, path, sublabel,
 }: MainLinkProps) {
   const router = useRouter();
   const linkPath = `/demos/${path}`;
@@ -55,7 +81,10 @@ function MainLink({
             {icon}
           </ThemeIcon>
 
-          <Text size="xs">{label}</Text>
+          <Box>
+            <Text size="xs">{label}</Text>
+            { sublabel && <Text size={10} color="dimmed" transform="uppercase">{ sublabel }</Text>}
+          </Box>
         </Group>
       </UnstyledButton>
     </Link>
@@ -63,6 +92,7 @@ function MainLink({
 }
 MainLink.defaultProps = {
   color: undefined,
+  sublabel: undefined,
 };
 
 export default function AppNavbar() {
