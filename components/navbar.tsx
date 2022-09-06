@@ -43,8 +43,18 @@ const productExamples = [
 ];
 
 const paramExamples = [
-  { icon: <IconSettings size={16} />, label: 'temperature', path: 'temperature' },
-  { icon: <IconSettings size={16} />, label: 'top_p', path: 'top-p' },
+  {
+    icon: <IconSettings size={16} />,
+    label: 'Travel advice by temperature',
+    sublabel: 'Temperature',
+    path: 'temperature',
+  },
+  {
+    icon: <IconSettings size={16} />,
+    label: 'Travel advice by top_p',
+    sublabel: 'top_p',
+    path: 'top-p',
+  },
 ];
 
 interface MainLinkProps {
