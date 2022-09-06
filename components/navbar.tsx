@@ -1,22 +1,27 @@
 import {
-  Group, Navbar, Text, ThemeIcon, UnstyledButton,
+  Box, Group, Navbar, Stack, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import {
-  IconBrandHipchat, IconMoodSmileBeam, IconMovie, IconPig, IconStar, IconThermometer,
+  IconBrandHipchat, IconMoodSmileBeam, IconMovie, IconPig, IconSettings, IconStar,
 } from '@tabler/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 
 // Add your pages here!
-const data = [
+const productExamples = [
   { icon: <IconMovie size={16} />, label: 'Movie to emoji', path: 'movie-to-emoji' },
   { icon: <IconBrandHipchat size={16} />, label: 'Chatbot', path: 'chatbot' },
   { icon: <IconMoodSmileBeam size={16} />, label: 'Tweet sentiment classifier', path: 'tweet-sentiment-classifier' },
   { icon: <IconPig size={16} />, label: 'Pig latin translator', path: 'pig-latin' },
   { icon: <IconStar size={16} />, label: 'Fake review generator', path: 'fake-review-generator' },
-  { icon: <IconThermometer size={16} />, label: '(Param) Temperature', path: 'temperature' },
 ];
+
+const paramExamples = [
+  { icon: <IconSettings size={16} />, label: 'temperature', path: 'temperature' },
+  { icon: <IconSettings size={16} />, label: 'top_p', path: 'top-p' },
+];
+
 interface MainLinkProps {
   icon: React.ReactNode;
   path: string;
@@ -60,15 +65,19 @@ MainLink.defaultProps = {
   color: undefined,
 };
 
-export function MainLinks() {
-  const links = data.map((link) => <MainLink {...link} key={link.label} />);
-  return <div>{links}</div>;
-}
-
 export default function AppNavbar() {
   return (
     <Navbar width={{ base: 250 }} height="100%" p={6}>
-      <MainLinks />
+      <Stack>
+        <Box>
+          <Text size="sm" weight="bold">Use cases</Text>
+          { productExamples.map((link) => <MainLink {...link} key={link.label} />) }
+        </Box>
+        <Box>
+          <Text size="sm" weight="bold">Parameters</Text>
+          { paramExamples.map((link) => <MainLink {...link} key={link.label} />) }
+        </Box>
+      </Stack>
     </Navbar>
   );
 }
