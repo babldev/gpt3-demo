@@ -7,17 +7,16 @@ import { useForm } from '@mantine/form';
 import GPTCompletion from 'components/completion';
 import { CreateCompletionRequest } from 'openai';
 import { getCompletion } from 'libs/openai-client';
+import { IconThumbDown, IconThumbUp } from '@tabler/icons';
 
 interface FormValues {
   input: string;
 }
 
 function generatePrompt({ input }: FormValues): CreateCompletionRequest {
-  const prompt = `Classify the sentiment in these tweets:
+  const prompt = `User tweet: ${input}
 
-${input}
-
-Tweet sentiment rating:`;
+Tweet sentiment rating [Positive, Neutral, Negative]:`;
 
   return {
     model: 'text-davinci-002',
@@ -31,7 +30,7 @@ Tweet sentiment rating:`;
 export default function TweetSentimentTranslator() {
   const form = useForm<FormValues>({
     initialValues: {
-      input: '',
+      input: 'Next I’m buying Coca-Cola to put the cocaine back in',
     },
     validate: {
       input: (value) => (value.length > 0 ? null : 'Invalid input'),
@@ -62,7 +61,6 @@ export default function TweetSentimentTranslator() {
           <TextInput
             withAsterisk
             label="Enter tweet to get sentiment"
-            placeholder="Next I’m buying Coca-Cola to put the cocaine back in"
             {...form.getInputProps('input')}
           />
           <Button type="submit" loading={loading}>Classify!</Button>
@@ -72,7 +70,13 @@ export default function TweetSentimentTranslator() {
               <Divider my="xs" />
               <Title order={4}>Result</Title>
               <Paper shadow="xs" p="md">
-                <Text size="xl" align="center">{ result }</Text>
+                <Text size="xl" align="center" style={{ verticalAlign: 'middle' }}>
+                  { result.toLowerCase().indexOf('positive') >= 0
+                    && <IconThumbUp style={{ verticalAlign: 'middle' }} color="green" /> }
+                  { result.toLowerCase().indexOf('negative') >= 0
+                    && <IconThumbDown style={{ verticalAlign: 'middle' }} color="red" /> }
+                  { result }
+                </Text>
               </Paper>
               <Title order={4}>GPT-3 Prompt</Title>
               { openaiRequest && <GPTCompletion request={openaiRequest} result={result} /> }
