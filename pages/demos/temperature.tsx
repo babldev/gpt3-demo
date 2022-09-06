@@ -6,7 +6,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import GPTCompletion from 'components/completion';
-import { CreateCompletionRequest } from 'openai';
+import { CreateCompletionRequest, CreateCompletionResponse } from 'openai';
 import { getCompletion } from 'libs/openai-client';
 
 interface FormValues {
@@ -14,27 +14,32 @@ interface FormValues {
 }
 
 interface TemperatureResult {
-  result?: string;
+  result: CreateCompletionResponse;
   request: CreateCompletionRequest;
   temperature: number;
 }
 
 function generatePrompt({ input }: FormValues, temperature: number): CreateCompletionRequest {
-  const prompt = `Question: ${input}
+  const prompt = `Question: What is a fun thing to do in San Francisco?
+Answer: Ride a bike along the Golden Gate Bridge.
+
+Question: What is a fun thing to do in ${input}?
 Answer:`;
 
   return {
     model: 'text-davinci-002',
     prompt,
-    max_tokens: 120,
+    max_tokens: 40,
     temperature,
+    n: 3,
+    stop: '\n',
   };
 }
 
-export default function Temperature() {
+export default function TopP() {
   const form = useForm<FormValues>({
     initialValues: {
-      input: 'Where is the capital of the United States?',
+      input: 'Edinburgh',
     },
     validate: {
       input: (value) => (value.length > 0 ? null : 'Invalid input'),
@@ -45,13 +50,11 @@ export default function Temperature() {
 
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
-    const temps = [0, 0.5, 0.9];
+    const temps = [0, 0.5, 1.0];
     const requests = temps.map((temp) => generatePrompt(values, temp));
     await Promise.all(requests.map(getCompletion)).then((completions) => {
       const completionResults = completions.map((completion, index) => ({
-        result: completion && completion.choices
-          ? completion.choices[0].text
-          : 'No result, check the logs.',
+        result: completion,
         request: requests[index],
         temperature: temps[index],
       }));
@@ -66,7 +69,11 @@ export default function Temperature() {
       <Text size="sm">
         According to
         {' '}
-        <a href="https://beta.openai.com/docs/api-reference/completions" target="_blank" rel="noreferrer">
+        <a
+          href="https://beta.openai.com/docs/api-reference/completions/create#completions/create-temperature"
+          target="_blank"
+          rel="noreferrer"
+        >
           OpenAI docs
         </a>
         {' '}
@@ -83,8 +90,8 @@ export default function Temperature() {
         <Stack spacing="xs">
           <TextInput
             withAsterisk
-            label="Question to answer"
-            placeholder="Where is the capital of the United States?"
+            label="Name a location for travel advice"
+            placeholder="Edinburgh"
             {...form.getInputProps('input')}
           />
           <Button type="submit" loading={loading}>Answer!</Button>
@@ -92,18 +99,31 @@ export default function Temperature() {
           && results.map(({ result, request, temperature }) => (
             <>
               <Divider my="xs" />
-
               <Title order={4}>
                 Temperature
+                {' '}
                 { temperature }
                 {' '}
                 Result
               </Title>
               <Paper shadow="xs" p="md">
-                <Text size="sm">{ result }</Text>
+                <ul>
+                  { result.choices?.map((choice) => (
+                    <li key={choice.index}>{ choice.text }</li>
+                  ))}
+                </ul>
               </Paper>
               <Title order={5}>Prompt</Title>
-              { request && <GPTCompletion request={request} result={result} /> }
+              { request && (
+              <GPTCompletion
+                request={request}
+                result={
+                    result?.choices?.length
+                      ? result?.choices[0]?.text
+                      : undefined
+                  }
+              />
+              ) }
             </>
           ))}
         </Stack>
