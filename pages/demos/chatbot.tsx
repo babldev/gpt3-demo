@@ -12,44 +12,49 @@ interface FormValues {
   input: string;
 }
 
-function generatePrompt({ input }: FormValues): CreateCompletionRequest {
-  const prompt = `Respond to the user input in a sarcastic tone of voice.
+const conversationStart = `GPT responds to the user in a sarcastic tone of voice.
 
-User input: ${input}
+GPT=You there, human. What do you want?`;
 
-Output:`;
+function generatePrompt(
+  { input }: FormValues,
+  existingConversation: string,
+): CreateCompletionRequest {
+  const prompt = `${existingConversation}
+User=${input}
+GPT=`;
 
   return {
     model: 'text-davinci-002',
     prompt,
     max_tokens: 60,
     temperature: 0.8,
-    stop: '\n',
   };
 }
 
 export default function Chatbot() {
   const form = useForm<FormValues>({
     initialValues: {
-      input: '',
+      input: "Hey, how's your day going?",
     },
     validate: {
       input: (value) => (value.length > 0 ? null : 'Invalid input'),
     },
   });
   const [loading, setLoading] = React.useState(false);
+  const [conversation, setConversation] = React.useState<string>(conversationStart);
   const [result, setResult] = React.useState<string | undefined>(undefined);
   const [openaiRequest, setOpenaiRequest] = React
     .useState<CreateCompletionRequest | undefined>(undefined);
 
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
-    const request = generatePrompt(values);
+    const request = generatePrompt(values, conversation);
     setOpenaiRequest(request);
     await getCompletion(request).then((completion) => {
-      setResult(completion && completion.choices
-        ? completion.choices[0].text
-        : 'No result, check the logs.');
+      const completionText = completion && completion.choices && completion.choices[0].text?.trim();
+      setResult(completionText || 'No result, check the logs.');
+      setConversation(`${request.prompt}${completionText}`);
     }).finally(() => {
       setLoading(false);
     });
@@ -59,21 +64,38 @@ export default function Chatbot() {
     <Box sx={{ maxWidth: 500 }}>
       <form onSubmit={form.onSubmit(onSubmit)}>
         <Stack spacing="xs">
+          <Paper shadow="xs" p="md">
+            { conversation.split('\n').map((line) => {
+              if (line.startsWith('User=')) {
+                return (
+                  <Text key={line}>
+                    <strong>User:</strong>
+                    {' '}
+                    {line.substring(5)}
+                  </Text>
+                );
+              }
+              if (line.startsWith('GPT=')) {
+                return (
+                  <Text color="blue" key={line}>
+                    <strong>GPT:</strong>
+                    {' '}
+                    {line.substring(4)}
+                  </Text>
+                );
+              }
+              return null;
+            }) }
+          </Paper>
           <TextInput
             withAsterisk
             label="Say hi to a sarcastic chatbot"
-            placeholder="Hey, how's your day going?"
             {...form.getInputProps('input')}
           />
           <Button type="submit" loading={loading}>Chat!</Button>
-          { (result && !loading)
-          && (
+          { result && (
             <>
               <Divider my="xs" />
-              <Title order={4}>Result</Title>
-              <Paper shadow="xs" p="md">
-                <Text size="xl" align="center">{ result }</Text>
-              </Paper>
               <Title order={4}>GPT-3 Prompt</Title>
               { openaiRequest && <GPTCompletion request={openaiRequest} result={result} /> }
             </>
