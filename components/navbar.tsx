@@ -2,7 +2,7 @@ import {
   Box, Group, Navbar, Stack, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import {
-  IconBrandHipchat, IconMoodSmileBeam, IconMovie, IconPig, IconSettings, IconStar,
+  IconBrandHipchat, IconBulb, IconDatabase, IconMoodSmileBeam, IconMovie, IconPig, IconStar,
 } from '@tabler/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -44,16 +44,25 @@ const productExamples = [
 
 const paramExamples = [
   {
-    icon: <IconSettings size={16} />,
+    icon: <IconBulb size={16} />,
     label: 'Travel advice by temperature',
     sublabel: 'Temperature',
     path: 'temperature',
   },
   {
-    icon: <IconSettings size={16} />,
+    icon: <IconBulb size={16} />,
     label: 'Travel advice by top_p',
     sublabel: 'top_p',
     path: 'top-p',
+  },
+];
+
+const modelExamples = [
+  {
+    icon: <IconDatabase size={16} />,
+    label: 'SQL generator',
+    sublabel: 'Codex',
+    path: 'sql-generator',
   },
 ];
 
@@ -116,6 +125,10 @@ export default function AppNavbar() {
         <Box>
           <Text size="sm" weight="bold">Parameters</Text>
           { paramExamples.map((link) => <MainLink {...link} key={link.label} />) }
+        </Box>
+        <Box>
+          <Text size="sm" weight="bold">Models</Text>
+          { modelExamples.map((link) => <MainLink {...link} key={link.label} />) }
         </Box>
       </Stack>
     </Navbar>
