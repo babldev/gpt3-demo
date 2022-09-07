@@ -1,6 +1,8 @@
-import { CreateCompletionResponse } from 'openai';
+import {
+  CreateCompletionRequest, CreateCompletionResponse, CreateEditRequest, CreateEditResponse,
+} from 'openai';
 
-async function getCompletion(request: CreateCompletionResponse): Promise<CreateCompletionResponse> {
+async function getCompletion(request: CreateCompletionRequest): Promise<CreateCompletionResponse> {
   return fetch('/api/completion', {
     method: 'POST',
     headers: {
@@ -12,4 +14,16 @@ async function getCompletion(request: CreateCompletionResponse): Promise<CreateC
   );
 }
 
-export { getCompletion };
+async function getEdit(request: CreateEditRequest): Promise<CreateEditResponse> {
+  return fetch('/api/completion', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request),
+  }).then(
+    (response) => response.json() as CreateEditResponse,
+  );
+}
+
+export { getCompletion, getEdit };
