@@ -19,6 +19,10 @@ cp .env.local.example .env.local
 
 Declare your API token in `.env.local`
 
+### Codex note
+
+Codex is in private beta and requires approval from Open AI. See details here: https://openai.com/blog/openai-codex/
+
 ### Starting the server
 
 ```sh
