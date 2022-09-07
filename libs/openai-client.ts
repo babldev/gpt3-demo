@@ -15,7 +15,7 @@ async function getCompletion(request: CreateCompletionRequest): Promise<CreateCo
 }
 
 async function getEdit(request: CreateEditRequest): Promise<CreateEditResponse> {
-  return fetch('/api/completion', {
+  return fetch('/api/edit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

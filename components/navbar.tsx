@@ -2,7 +2,8 @@ import {
   Box, Group, Navbar, Stack, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import {
-  IconBrandHipchat, IconBulb, IconDatabase, IconMoodSmileBeam, IconMovie, IconPig, IconStar,
+  IconBrandHipchat, IconBulb, IconDatabase, IconEdit,
+  IconMoodSmileBeam, IconMovie, IconPig, IconStar,
 } from '@tabler/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -39,6 +40,12 @@ const productExamples = [
     label: 'Fake review generator',
     sublabel: 'Generation',
     path: 'fake-review-generator',
+  },
+  {
+    icon: <IconEdit size={16} />,
+    label: 'Copy editor',
+    sublabel: 'Editing',
+    path: 'editor',
   },
 ];
 
