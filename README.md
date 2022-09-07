@@ -1,8 +1,9 @@
 # gpt3-demo
 
-![screenshot](https://user-images.githubusercontent.com/220799/188976231-8bda0fb3-d83a-464e-80b2-d33f1a3c9941.png)
+<img src="https://user-images.githubusercontent.com/220799/188976628-aee63401-55fa-40c9-81d7-028758906d20.png"
+   width="600" alt="Screenshot of npm app with GPT-3 demos" />
 
-## Bootstrap
+## Bootstrap!
 
 Run the webserver locally to interact with the demo
 
