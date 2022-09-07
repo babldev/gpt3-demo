@@ -2,7 +2,7 @@ import {
   Box, Group, Navbar, Stack, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import {
-  IconBrandHipchat, IconBulb, IconDatabase, IconEdit,
+  IconBrandHipchat, IconBrandPython, IconBulb, IconDatabase, IconEdit,
   IconMoodSmileBeam, IconMovie, IconPig, IconStar,
 } from '@tabler/icons';
 import Link from 'next/link';
@@ -47,6 +47,18 @@ const productExamples = [
     sublabel: 'Editing',
     path: 'editor',
   },
+  {
+    icon: <IconDatabase size={16} />,
+    label: 'SQL generator',
+    sublabel: 'Codex',
+    path: 'sql-generator',
+  },
+  {
+    icon: <IconBrandPython size={16} />,
+    label: 'Docstring insertion',
+    sublabel: 'Codex, insertion',
+    path: 'docstring',
+  },
 ];
 
 const paramExamples = [
@@ -61,15 +73,6 @@ const paramExamples = [
     label: 'Travel advice by top_p',
     sublabel: 'top_p',
     path: 'top-p',
-  },
-];
-
-const modelExamples = [
-  {
-    icon: <IconDatabase size={16} />,
-    label: 'SQL generator',
-    sublabel: 'Codex',
-    path: 'sql-generator',
   },
 ];
 
@@ -132,10 +135,6 @@ export default function AppNavbar() {
         <Box>
           <Text size="sm" weight="bold">Parameters</Text>
           { paramExamples.map((link) => <MainLink {...link} key={link.label} />) }
-        </Box>
-        <Box>
-          <Text size="sm" weight="bold">Models</Text>
-          { modelExamples.map((link) => <MainLink {...link} key={link.label} />) }
         </Box>
       </Stack>
     </Navbar>
