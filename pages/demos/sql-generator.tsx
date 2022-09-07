@@ -46,7 +46,7 @@ SELECT`;
 export default function SQLGenerator() {
   const form = useForm<FormValues>({
     initialValues: {
-      input: 'Count the unique number of weekly visits to the website for the past year.',
+      input: 'Count the unique number of users with weekly visits to the website for the past year.',
     },
     validate: {
       input: (value) => (value.length > 0 ? null : 'Invalid input'),
