@@ -1,5 +1,7 @@
 # gpt3-demo
 
+![screenshot](https://user-images.githubusercontent.com/220799/188976231-8bda0fb3-d83a-464e-80b2-d33f1a3c9941.png)
+
 ## Bootstrap
 
 Run the webserver locally to interact with the demo
