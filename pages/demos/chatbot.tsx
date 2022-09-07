@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  Box, Button, Divider, Paper, Stack, Text, TextInput, Title,
+  Box, Button, Divider, Grid, Paper, Stack, Text, TextInput, Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import GPTCompletion from 'components/completion';
@@ -27,7 +27,7 @@ GPT=`;
   return {
     model: 'text-davinci-002',
     prompt,
-    max_tokens: 60,
+    max_tokens: 120,
     temperature: 0.8,
   };
 }
@@ -87,12 +87,18 @@ export default function Chatbot() {
               return null;
             }) }
           </Paper>
-          <TextInput
-            withAsterisk
-            label="Say hi to a sarcastic chatbot"
-            {...form.getInputProps('input')}
-          />
-          <Button type="submit" loading={loading}>Chat!</Button>
+          <Grid>
+            <Grid.Col span={10}>
+              <TextInput
+                withAsterisk
+                {...form.getInputProps('input')}
+              />
+            </Grid.Col>
+            <Grid.Col span={2}>
+              <Button type="submit" loading={loading}>Send</Button>
+            </Grid.Col>
+          </Grid>
+
           { result && (
             <>
               <Divider my="xs" />
