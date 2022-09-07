@@ -3,7 +3,7 @@ import {
 } from '@mantine/core';
 import {
   IconBrandHipchat, IconBrandPython, IconBulb, IconDatabase, IconEdit,
-  IconMoodSmileBeam, IconMovie, IconPig, IconStar,
+  IconMoodSmileBeam, IconMovie, IconPig, IconSearch, IconStar,
 } from '@tabler/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -58,6 +58,12 @@ const productExamples = [
     label: 'Docstring insertion',
     sublabel: 'Codex, insertion',
     path: 'docstring',
+  },
+  {
+    icon: <IconSearch size={16} />,
+    label: 'Search relevance',
+    sublabel: 'Embeddings',
+    path: 'search',
   },
 ];
 
