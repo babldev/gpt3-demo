@@ -11,6 +11,15 @@ A collection of interactive GPT-3 demos in a NextJS+Mantine web app.
 
 Run the webserver locally to interact with the demo
 
+### Node 18.* recommended
+
+```sh
+node --version
+v18.7.0
+```
+
+Other versions may work but your mileage may vary. Installable here: https://nodejs.org/en/download/current/
+
 ### Open AI token required
 
 Create one here: [https://openai.com/api/](https://openai.com/api/)
