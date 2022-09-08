@@ -46,7 +46,7 @@ SELECT`;
 export default function SQLGenerator() {
   const form = useForm<FormValues>({
     initialValues: {
-      input: 'Count the unique number of users with weekly visits to the website for the past year.',
+      input: 'Count the unique number of users with weekly visits to the website within the past 12 months.',
     },
     validate: {
       input: (value) => (value.length > 0 ? null : 'Invalid input'),
@@ -92,7 +92,7 @@ export default function SQLGenerator() {
               <Divider my="xs" />
               <Title order={4}>Result</Title>
               <Paper shadow="xs" p="md">
-                <Prism language="sql">{`SELECT ${result};`}</Prism>
+                <Prism language="sql">{`SELECT${result};`}</Prism>
               </Paper>
               <Title order={5}>Prompt</Title>
               { openaiRequest && <GPTCompletion request={openaiRequest} result={result} /> }
