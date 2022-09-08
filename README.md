@@ -2,8 +2,10 @@
 
 A collection of interactive GPT-3 demos in a NextJS+Mantine web app.
 
-<img src="https://user-images.githubusercontent.com/220799/188976628-aee63401-55fa-40c9-81d7-028758906d20.png"
+<p align="center">
+<img src="https://user-images.githubusercontent.com/220799/189034554-2670ee49-03be-4df3-bd19-14ef28496246.png"
    width="600" alt="Screenshot of npm app with GPT-3 demos" />
+</p>
 
 ## Bootstrap
 
