@@ -41,7 +41,7 @@ npm install
 npm run dev
 ```
 
-If you are seeing HTTP Code 429 errors, make sure your OpenAI account is in good standings (trial could be expired).
+If you are seeing HTTP Code 429 errors, make sure your OpenAI account is in good standing (trial could be expired).
 
 ## Pre-commit setup
 ```sh
